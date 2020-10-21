@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgis
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= Rails.application.credentials.dig(:development, :postgres_username) %>
+  password:  <%= Rails.application.credentials.dig(:development, :postgres_password) %>
+  host: <%= Rails.application.credentials.dig(:development, :postgres_host) %>
+  port: <%= Rails.application.credentials.dig(:development, :postgres_port) %>
+
+development:
+  <<: *default
+  database: mycoffee_arretado_api_dev
+  
+test:
+  <<: *default
+  database: mycoffee_arretado_api_test
+
+production:
+  <<: *default
+  database: find_my_coffee_api_production
+  username: find_my_coffee_api
+  password: <%= ENV['FIND_MY_COFFEE_API_DATABASE_PASSWORD'] %>
